@@ -23,3 +23,11 @@ http_archive(
     strip_prefix = "raylib-3.0.0",
     url = "https://github.com/raysan5/raylib/archive/3.0.0.tar.gz",
 )
+
+http_archive(
+    name = "wpilib_sources",
+    build_file_content = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//visibility:public"])""",
+    sha256 = "9df94fd4c3f3a76201619cdb4010fdb923b6ed28a235dde3bf98e36539464f40",
+    strip_prefix = "allwpilib-2020.3.2",
+    url = "https://github.com/wpilibsuite/allwpilib/archive/v2020.3.2.tar.gz",
+)

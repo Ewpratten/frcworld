@@ -7,5 +7,6 @@ cc_binary(
     ],
     deps = [
         "//raylib",
+        "//ntcore",
     ],
 )
