@@ -28,7 +28,7 @@ Vector3 fetchRobotPose() {
 }
 Vector3 fetchRobotNormal(Vector3 pose, float radius) {
     // Get heading
-    float degrees = (float)ntInst.GetEntry("drivetrain_theta").GetDouble(0.0) + 90.0f;
+    float degrees = (float)ntInst.GetEntry("drivetrain_theta").GetDouble(0.0);
     float x = std::cos(DEG2RAD * degrees);
     float y = std::sin(DEG2RAD * degrees);
 
@@ -125,11 +125,14 @@ int main(int argc, char** argv) {
         // DrawCube(robotPose, robotWidth, robotHeight, robotLength, RED);
         // DrawCubeWires(robotPose, robotWidth, robotHeight, robotLength, GRAY);
         DrawSphere(robotPose, robotRadius, RED);
+        DrawSphereWires(robotPose, robotRadius, 5, 10, MAROON);
         DrawSphere(robotNormal, 0.1, BLUE);
+        DrawSphereWires(robotNormal, 0.1, 3, 5, WHITE);
 
         // Render the "floor"
         DrawCube(fieldPose, fieldWidth, fieldHeight, fieldLength, LIGHTGRAY);
         DrawCubeWires(fieldPose, fieldWidth, fieldHeight, fieldLength, GRAY);
+
         EndMode3D();
 
         EndDrawing();
