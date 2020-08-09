@@ -3,13 +3,16 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_binary(
     name = "frcworld",
     srcs = [
-        "main.cc",
+        "cxxopts.hpp",
         "json.hpp",
-        "cxxopts.hpp"
+        "main.cc",
+    ],
+    copts = [
+        "-std=c++17",
+        "-fpermissive",
     ],
     deps = [
         "//thirdparty/ntcore",
         "//thirdparty/raylib",
     ],
-    copts=["-std=c++17"]
 )
