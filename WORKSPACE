@@ -26,7 +26,7 @@ http_archive(
 
 http_archive(
     name = "wpilib_sources",
-    build_file_content = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//visibility:public"])""",
+    build_file_content = all_content,
     sha256 = "9df94fd4c3f3a76201619cdb4010fdb923b6ed28a235dde3bf98e36539464f40",
     strip_prefix = "allwpilib-2020.3.2",
     url = "https://github.com/wpilibsuite/allwpilib/archive/v2020.3.2.tar.gz",

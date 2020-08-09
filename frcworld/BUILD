@@ -4,9 +4,12 @@ cc_binary(
     name = "frcworld",
     srcs = [
         "main.cc",
+        "json.hpp",
+        "cxxopts.hpp"
     ],
     deps = [
-        "//raylib",
-        "//ntcore",
+        "//thirdparty/ntcore",
+        "//thirdparty/raylib",
     ],
+    copts=["-std=c++17"]
 )
