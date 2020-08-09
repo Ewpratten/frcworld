@@ -7,7 +7,7 @@ extern "C" {
 #include <raylib.h>
 }
 
-#include <ntcore.h>
+#include <networktables/NetworkTableInstance.h>
 
 #include "cxxopts.hpp"
 #include "json.hpp"
@@ -16,9 +16,23 @@ extern "C" {
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-Vector3 fetchRobotPose() { return (Vector3){0.0f, 0.0f, 0.0f}; }
+// NT instance
+nt::NetworkTableInstance ntInst;
+
+Vector3 fetchRobotPose() {
+    // Get pose info
+    float x = (float)ntInst.GetEntry("drivetrain_x").GetDouble(0.0);
+    float y = (float)ntInst.GetEntry("drivetrain_y").GetDouble(0.0);
+
+    return (Vector3){x, 0.0f, y};
+}
 Vector3 fetchRobotNormal(Vector3 pose, float radius) {
-    Vector3 unit = (Vector3){0.0f, 0.0f, 1.0f};
+    // Get heading
+    float degrees = (float)ntInst.GetEntry("drivetrain_theta").GetDouble(0.0) + 90.0f;
+    float x = std::cos(DEG2RAD * degrees);
+    float y = std::sin(DEG2RAD * degrees);
+
+    Vector3 unit = (Vector3){x, 0.0f, y};
 
     return (Vector3){pose.x + unit.x * radius, pose.y + unit.y * radius,
                      pose.z + unit.z * radius};
@@ -69,6 +83,11 @@ int main(int argc, char** argv) {
     Vector3 robotNormal = (Vector3){0.0f, 0.0f, 1.0f};
     Vector3 fieldPose = {0.0f, ((robotHeight / 2) * -1) - fieldHeight / 2,
                          (fieldLength / 2) - (robotLength / 2)};
+
+    // Make a networktables connection
+    ntInst = nt::NetworkTableInstance::Create();
+    ntInst.StartClient(args["ip"].as<std::string>().c_str());
+    ntInst.SetUpdateRate(0.01);
 
     // Init a raylib window
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "FRCWorld 3D Robot viewer");
