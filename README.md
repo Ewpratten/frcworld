@@ -29,6 +29,6 @@ This program requires the attached robot to be publishing the following NetworkT
 
 ## Screenshots
 
-![example field](assets/frcworldv1.png)\
+![example field](assets/frcworldv1.png)
 
 *The example field and "robot"*
