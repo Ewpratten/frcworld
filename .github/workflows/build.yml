@@ -25,6 +25,10 @@ jobs:
           mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
           chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
 
+      - name: Install RandR dependancies
+        run: |
+          sudo apt-get install xorg-dev libglu1-mesa-dev -y
+
       - name: Build
         run: |
            "${GITHUB_WORKSPACE}/bin/bazel" build //frcworld
